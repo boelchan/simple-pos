@@ -16,7 +16,9 @@ class CreateTranscationsTable extends Migration
         Schema::create('transcations', function (Blueprint $table) {
             $table->string('invoices_number');
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('customer_id')->unsigned();
             $table->integer('pay');
+            $table->integer('discont')->nullable();
             $table->integer('total');
             $table->timestamps();
         });

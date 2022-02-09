@@ -1,5 +1,4 @@
 @extends('layouts.app')
-<!-- © 2020 Copyright: Tahu Coding -->
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -42,7 +41,7 @@
                                     @include('layouts.error', ['name' => 'price'])
                                 </div>
                                 <div class="form-group">
-                                    <label>Gambar Hero</label>
+                                    <label>Gambar</label>
                                     <div>
                                         <div class="custom-file">
                                             <br>
@@ -76,12 +75,6 @@
                                     @endif
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea name="description" cols="30" rows="10"
-                                class="form-control">{{ old('description', $product->description) }}</textarea>
-                            @include('layouts.error', ['name' => 'description'])
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block">Update Product</button>
@@ -120,5 +113,3 @@
     </div>
 </div>
 @endsection
-<!-- © 2020 Copyright: Tahu Coding -->
-

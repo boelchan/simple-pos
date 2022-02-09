@@ -1,5 +1,4 @@
 @extends('layouts.app')
-<!-- © 2020 Copyright: Tahu Coding -->
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -9,14 +8,7 @@
                     <form action="{{ url('/transcation') }}" method="get">
                         <div class="row">
                             <div class="col">
-                                <h4 class="font-weight-bold">Products</h4>
-                            </div>
-                            <div class="col text-right">
-                                <select name="" id="" class="form-control from-control-sm" style="font-size: 12px">
-                                    <option value="" holder>Filter Category</option>
-                                    <option value="1">All Category...</option>
-                                    <!-- Kembangkan sendiri ya bagian ini kalau bisa pake select2 biar keren -->
-                                </select>
+                                <h4 class="font-weight-bold">Produk</h4>
                             </div>
                             <div class="col"><input type="text" name="search"
                                     class="form-control form-control-sm col-sm-12 float-right"
@@ -51,8 +43,9 @@
                                 <div class="card-body">
                                     <label class="card-text text-center font-weight-bold"
                                         style="text-transform: capitalize;">
-                                        {{ Str::words($product->name,4) }} ({{$product->qty}}) </label>
-                                    <p class="card-text text-center">Rp. {{ number_format($product->price,2,',','.') }}
+                                        {{ $product->name }}</label>
+                                        {{-- {{ Str::words($product->name,4) }} ({{$product->qty}}) </label> --}}
+                                    <p class="card-text text-center">Rp. {{ number_format($product->price,0,',','.') }}
                                     </p>
                                 </div>
                             </div>
@@ -68,19 +61,12 @@
                 <div class="card-header bg-white">
                     <div class="row">
                         <div class="col-sm-4">
-                            <h4 class="font-weight-bold">Cart</h4>
-                        </div>
-                        <div class="col-sm-8">
-                            <select name="" id="" class="form-control from-control-sm" style="font-size: 13px">
-                                <option value="1">Take Away Customer</option>
-                                <option value="" holder>Other Customer...</option>
-                                <!-- Kembangkan sendiri ya bagian ini -->
-                            </select>
+                            <h4 class="font-weight-bold">Kasir</h4>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div style="overflow-y:auto;min-height:53vh;max-height:53vh" class="mb-3">
+                    <div style="overflow-y:auto;min-height:43vh;max-height:53vh" class="mb-3">
                         <table class="table table-sm">
                             <thead>
                                 <tr>
@@ -105,7 +91,7 @@
                                         </form>
                                     </td>
                                     <td>{{Str::words($item['name'],3)}} <br>Rp.
-                                        {{ number_format($item['pricesingle'],2,',','.') }}
+                                        {{ number_format($item['pricesingle'],0,',','.') }}
                                     </td>
                                     <td class="font-weight-bold">
                                         <form action="{{url('/transcation/decreasecart', $item['rowId'])}}"
@@ -124,7 +110,7 @@
                                                     class="fas fa-plus"></i></button>
                                         </form>
                                     </td>
-                                    <td class="text-right">Rp. {{ number_format($item['price'],2,',','.') }}</td>
+                                    <td class="text-right">Rp. {{ number_format($item['price'],0,',','.') }}</td>
                                 </tr>
                                 @empty
                                 <tr>
@@ -138,23 +124,20 @@
                         <tr>
                             <th width="60%">Sub Total</th>
                             <th width="40%" class="text-right">Rp.
-                                {{ number_format($data_total['sub_total'],2,',','.') }} </th>
+                                {{ number_format($data_total['sub_total'],0,',','.') }} </th>
                         </tr>
                         <tr>
+                            <th> Diskon </th>
                             <th>
                                 <form action="{{ url('/transcation') }}" method="get">
-                                    PPN 10%
-                                    <input type="checkbox" {{ $data_total['tax'] > 0 ? "checked" : ""}} name="tax"
-                                        value="true" onclick="this.form.submit()">
+                                    <input type="number" name="discount" value="{{ $data_total['discount'] }}" onchange="this.form.submit()">
                                 </form>
                             </th>
-                            <th class="text-right">Rp.
-                                {{ number_format($data_total['tax'],2,',','.') }}</th>
                         </tr>
                         <tr>
                             <th>Total</th>
                             <th class="text-right font-weight-bold">Rp.
-                                {{ number_format($data_total['total'],2,',','.') }}</th>
+                                {{ number_format($data_total['total'],0,',','.') }}</th>
                         </tr>
                     </table>
                     <div class="row">
@@ -162,18 +145,18 @@
                             <form action="{{ url('/transcation/clear') }}" method="POST">
                                 @csrf
                                 <button class="btn btn-info btn-lg btn-block" style="padding:1rem!important"
-                                    onclick="return confirm('Apakah anda yakin ingin meng-clear cart ?');"
-                                    type="submit">Clear</button>
+                                    onclick="return confirm('Apakah anda yakin membatalkan transaksi ini ?');"
+                                    type="submit">Batal</button>
                             </form>
                         </div>
                         <div class="col-sm-4">
                             <a class="btn btn-primary btn-lg btn-block"
-                                style="padding:1rem!important" href="{{url('/transcation/history')}}" target="_blank">History</a>
+                                style="padding:1rem!important" href="{{url('/transcation/history')}}" target="_blank">Riwayat</a>
                             <!-- Kembangkan sendiri ya bagian ini, logikanya kita simpan cartnya sementara dalam databse ntar kalau butuh keluarin lagi-->
                         </div>
                         <div class="col-sm-4">
                             <button class="btn btn-success btn-lg btn-block" style="padding:1rem!important"
-                                data-toggle="modal" data-target="#fullHeightModalRight">Pay</button>
+                                data-toggle="modal" data-target="#fullHeightModalRight">Bayar</button>
                         </div>
                     </div>
                 </div>
@@ -196,22 +179,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-sm table-borderless">
-                        <tr>
-                            <th width="60%">Sub Total</th>
-                            <th width="40%" class="text-right">Rp.
-                                {{ number_format($data_total['sub_total'],2,',','.') }} </th>
-                        </tr>
-                        @if($data_total['tax'] > 0)
-                        <tr>
-                            <th>PPN 10%</th>
-                            <th class="text-right">Rp.
-                                {{ number_format($data_total['tax'],2,',','.') }}</th>
-                        </tr>
-                        @endif
-                    </table>
+
                     <form action="{{ url('/transcation/bayar') }}" method="POST">
                     @csrf
+
+                    <div class="form-group">
+                        <label for="oke">Member</label>
+                        <select name="customer_id" id="" class="form-control" style="font-size: 13px">
+                            @foreach ( $customers as $k => $v)
+                                <option value="{{ $k }}">{{ $v }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="oke">Input Nominal</label>
                         <input id="oke" class="form-control" type="number" name="bayar" autofocus />
@@ -228,15 +207,14 @@
                 </div>
                 
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="saveButton" disabled onClick="openWindowReload(this)">Save transcation</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Keluar</button>
+                    <button type="submit" class="btn btn-primary" id="saveButton" disabled onClick="openWindowReload(this)">Bayar</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
     @endsection
-    <!-- © 2020 Copyright: Tahu Coding -->
     <!-- Ini error harusnya bisa dinamis ambil value dari controller tp agar cepet ya biar aja gini silahkan modifikasi  -->
     @push('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -261,9 +239,8 @@
     @if(Session::has('success'))
     <script>
         toastr.success(
-            'Transaksi berhasil | Thank Your from Tahu Coding'
+            'Transaksi berhasil'
         )
-
     </script>
     @endif
 
@@ -325,7 +302,7 @@
     <style>
         .gambar {
             width: 100%;
-            height: 175px;
+            height: 90px;
             padding: 0.9rem 0.9rem
         }
 
@@ -376,5 +353,4 @@
         }
 
     </style>
-    <!-- © 2020 Copyright: Tahu Coding -->
     @endpush

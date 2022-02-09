@@ -1,12 +1,11 @@
 <?php
-//© 2020 Copyright: Tahu Coding
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Transcation extends Model
 {
-    //demi keamanan kalian harusnya ubah ini ke fillable ya
     protected $guarded = [];
 
     protected $primaryKey = 'invoices_number';
@@ -20,5 +19,10 @@ class Transcation extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
+    public function getTanggalAttribute(){
+        return (new Carbon($this->created_at))->format('d-m-Y');
+    }
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Middleware;
-//© 2020 Copyright: Tahu Coding
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;

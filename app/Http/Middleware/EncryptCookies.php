@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Middleware;
-//© 2020 Copyright: Tahu Coding
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
 class EncryptCookies extends Middleware

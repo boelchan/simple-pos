@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-//© 2020 Copyright: Tahu Coding
 use File;
 use App\Product;
 use App\HistoryProduct;
@@ -39,7 +38,7 @@ class ProductController extends Controller
                 $this->validate($request, [
                     'name' => 'required|min:2|max:200',
                     'price' => 'required',
-                    'description' => 'required', 
+                    // 'description' => 'required', 
                 ]);
 
                 if($request->addQty){
@@ -97,8 +96,8 @@ class ProductController extends Controller
                     'name' => 'required|min:2|max:200',
                     'price' => 'required',
                     'qty' => 'required',
-                    'image' => 'mimes:jpeg,jpg,png,gif|required|max:25000',
-                    'description' => 'required', 
+                    'image' => 'mimes:jpeg,jpg,png,gif|max:25000',
+                    // 'description' => 'required', 
                 ]);
 
                 $gambar = $request->image;
@@ -163,5 +162,4 @@ class ProductController extends Controller
         
     }
 
-    //© 2020 Copyright: Tahu Coding
 }

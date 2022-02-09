@@ -29,7 +29,19 @@
                                 <tr>
                                     <td width="38%">Tanggal Transaksi</td>
                                     <td width="2%">:</td>
-                                    <td width="60%">{{$transaksi->created_at}}</td>
+                                    <td width="60%">{{$transaksi->tanggal}}
+                                        <form action="{{route('update.tanggal')}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $transaksi->invoices_number }}">
+                                            <input type="date" class="form-control" name="created_at" value="{{ $transaksi->created_at }}">
+                                            @include('layouts.error', ['name' => 'created_at'])
+                                        
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-sm btn-block">Ubah Tanggal</button>
+                                            </div>
+                                        </form>
+                                        
+                                    </td>
                                 </tr>
                             </table>
                         </div>
