@@ -95,7 +95,7 @@ class TransactionController extends Controller
 
     public function addProductCart($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrfail($id);
 
         $cart = \Cart::session(Auth()->id())->getContent();
         $cek_itemId = $cart->whereIn('id', $id);
@@ -281,7 +281,7 @@ class TransactionController extends Controller
             'created_at' => 'required',
         ]);
 
-        $transaksi = Transcation::find($request->id);
+        $transaksi = Transcation::findOrfail($request->id);
 
         $transaksi->created_at = $request->created_at;
         $transaksi->save();
@@ -291,13 +291,13 @@ class TransactionController extends Controller
 
     public function laporan($id)
     {
-        $transaksi = Transcation::with('productTranscation')->find($id);
+        $transaksi = Transcation::with('productTranscation')->findOrfail($id);
         return view('laporan.transaksi', compact('transaksi'));
     }
 
     public function cetakLaporan($id)
     {
-        $transaksi = Transcation::with('productTranscation')->find($id);
+        $transaksi = Transcation::with('productTranscation')->findOrfail($id);
         $detail = ProductTranscation::where('invoices_number', $id)->get();
 
         $pdf = App::make('dompdf.wrapper');
