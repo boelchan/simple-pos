@@ -7,7 +7,7 @@
                 <div class="card-header bg-white">
                     <form action="{{ route('customer.destroy', $customer->id ) }}" method="POST">
                         <label class="font-weight-bold">
-                            <h4 class="font-weight-bold">customers</h4>
+                            <h4 class="font-weight-bold">Customer</h4>
                         </label>
                         @method('delete')
                         @csrf

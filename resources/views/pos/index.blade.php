@@ -21,33 +21,15 @@
                 <div class="card-body">
                     <div class="row">
                         @foreach ($products as $product)
-                        <div style="width: 16.66%;border:1px solid rgb(243, 243, 243)" class="mb-4">
-                            <div class="productCard">
-                                <div class="view overlay">
-                                    <form action="{{url('/transcation/addproduct', $product->id)}}" method="POST">
-                                        @csrf
-                                        @if($product->qty == 0)
-                                        <img class="card-img-top gambar" src="{{ $product->image }}"
-                                            alt="Card image cap">
-                                        <button class="btn btn-primary btn-sm cart-btn disabled"><i
-                                                class="fas fa-cart-plus"></i></button>
-                                        @else
-                                        <img class="card-img-top gambar" src="{{ $product->image }}"
-                                            alt="Card image cap" style="cursor: pointer"
-                                            onclick="this.closest('form').submit();return false;">
-                                        <button type="submit" class="btn btn-primary btn-sm cart-btn"><i
-                                                class="fas fa-cart-plus"></i></button>
-                                        @endif
-                                    </form>
-                                </div>
-                                <div class="card-body">
-                                    <label class="card-text text-center font-weight-bold"
-                                        style="text-transform: capitalize;">
-                                        {{ $product->name }}</label>
-                                        {{-- {{ Str::words($product->name,4) }} ({{$product->qty}}) </label> --}}
-                                    <p class="card-text text-center">Rp. {{ number_format($product->price,0,',','.') }}
-                                    </p>
-                                </div>
+                        <div class="col-md-2" style="border:1px solid rgb(243, 243, 243)">
+                            <form action="{{url('/transcation/addproduct', $product->id)}}" method="POST">
+                                <div class="productCard p-0"  onclick="this.closest('form').submit();return false;">
+                                    @csrf
+                                    <div class="card-body p-0 py-1">
+                                        <label class="card-text text-center font-weight-bold" style="text-transform: capitalize;"> {{ $product->name }}</label>
+                                        <p class="card-text text-center">Rp. {{ number_format($product->price,0,',','.') }} </p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         @endforeach
@@ -70,10 +52,10 @@
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                    <th width="10%">No</th>
-                                    <th width="30%">Nama Product</th>
+                                    <th width="5%">No</th>
+                                    <th width="40%">Nama Produk</th>
                                     <th width="30%">Qty</th>
-                                    <th width="30%" class="text-right">Sub Total</th>
+                                    <th width="25%" class="text-right">Sub Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,8 +72,8 @@
                                                     class="fas fa-trash" style="color: rgb(134, 134, 134)"></i></a>
                                         </form>
                                     </td>
-                                    <td>{{Str::words($item['name'],3)}} <br>Rp.
-                                        {{ number_format($item['pricesingle'],0,',','.') }}
+                                    <td>{{Str::words($item['name'],10)}} <br>Rp.
+                                        <i>{{ number_format($item['pricesingle'],0,',','.') }}</i>
                                     </td>
                                     <td class="font-weight-bold">
                                         <form action="{{url('/transcation/decreasecart', $item['rowId'])}}"
@@ -130,7 +112,8 @@
                             <th> Diskon </th>
                             <th>
                                 <form action="{{ url('/transcation') }}" method="get">
-                                    <input type="number" name="discount" value="{{ $data_total['discount'] }}" onchange="this.form.submit()">
+                                    <input type="number" name="discount" value="{{ $data_total['discount'] }}"
+                                        onchange="this.form.submit()">
                                 </form>
                             </th>
                         </tr>
@@ -149,11 +132,13 @@
                                     type="submit">Batal</button>
                             </form>
                         </div>
+                        @role('superadmin')
                         <div class="col-sm-4">
-                            <a class="btn btn-primary btn-lg btn-block"
-                                style="padding:1rem!important" href="{{url('/transcation/history')}}" target="_blank">Riwayat</a>
+                            <a class="btn btn-primary btn-lg btn-block" style="padding:1rem!important"
+                                href="{{url('/transcation/history')}}" target="_blank">Riwayat</a>
                             <!-- Kembangkan sendiri ya bagian ini, logikanya kita simpan cartnya sementara dalam databse ntar kalau butuh keluarin lagi-->
                         </div>
+                        @endrole
                         <div class="col-sm-4">
                             <button class="btn btn-success btn-lg btn-block" style="padding:1rem!important"
                                 data-toggle="modal" data-target="#fullHeightModalRight">Bayar</button>
@@ -170,7 +155,7 @@
         <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
         <div class="modal-dialog modal-full-height modal-right" role="document">
 
-        <!-- Sorry campur2 bahasa indonesia sama inggris krn kebiasaan make b.inggris eh ternyata buat aplikasi buat indonesia jadi gini deh  -->
+            <!-- Sorry campur2 bahasa indonesia sama inggris krn kebiasaan make b.inggris eh ternyata buat aplikasi buat indonesia jadi gini deh  -->
             <div class="modal-content">
                 <div class="modal-header indigo">
                     <h6 class="modal-title w-100 text-light" id="myModalLabel">Billing Information</h6>
@@ -181,34 +166,35 @@
                 <div class="modal-body">
 
                     <form action="{{ url('/transcation/bayar') }}" method="POST">
-                    @csrf
+                        @csrf
 
-                    <div class="form-group">
-                        <label for="oke">Member</label>
-                        <select name="customer_id" id="" class="form-control" style="font-size: 13px">
-                            @foreach ( $customers as $k => $v)
+                        <div class="form-group">
+                            <label for="oke">Member</label>
+                            <select name="customer_id" id="" class="form-control" style="font-size: 13px">
+                                @foreach ( $customers as $k => $v)
                                 <option value="{{ $k }}">{{ $v }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="oke">Input Nominal</label>
-                        <input id="oke" class="form-control" type="number" name="bayar" autofocus />
-                    </div>
-                    <h3 class="font-weight-bold">Total:</h3>
-                    <h1 class="font-weight-bold mb-5">Rp. {{ number_format($data_total['total'],2,',','.') }}</h1>
-                    <input id="totalHidden" type="hidden" name="totalHidden" value="{{$data_total['total']}}" />
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="oke">Input Nominal</label>
+                            <input id="oke" class="form-control" type="number" name="bayar" autofocus />
+                        </div>
+                        <h3 class="font-weight-bold">Total:</h3>
+                        <h1 class="font-weight-bold mb-5">Rp. {{ number_format($data_total['total'],2,',','.') }}</h1>
+                        <input id="totalHidden" type="hidden" name="totalHidden" value="{{$data_total['total']}}" />
 
-                    <h3 class="font-weight-bold">Bayar:</h3>
-                    <h1 class="font-weight-bold mb-5" id="pembayaran"></h1>
+                        <h3 class="font-weight-bold">Bayar:</h3>
+                        <h1 class="font-weight-bold mb-5" id="pembayaran"></h1>
 
-                    <h3 class="font-weight-bold text-primary">Kembalian:</h3>
-                    <h1 class="font-weight-bold text-primary" id="kembalian"></h1>
+                        <h3 class="font-weight-bold text-primary">Kembalian:</h3>
+                        <h1 class="font-weight-bold text-primary" id="kembalian"></h1>
                 </div>
-                
+
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-info" data-dismiss="modal">Keluar</button>
-                    <button type="submit" class="btn btn-primary" id="saveButton" disabled onClick="openWindowReload(this)">Bayar</button>
+                    <button type="submit" class="btn btn-primary" id="saveButton" disabled
+                        onClick="openWindowReload(this)">Bayar</button>
                 </div>
                 </form>
             </div>
@@ -349,8 +335,6 @@
 
         .productCard:hover {
             border: solid 1px rgb(172, 172, 172);
-
         }
-
     </style>
     @endpush

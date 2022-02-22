@@ -81,6 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
+                    <h3>Sumenep Digital Print</h3>
                     Point of Sales
                 </div>
             </div>

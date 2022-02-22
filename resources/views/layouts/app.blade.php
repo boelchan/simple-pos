@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript">
-    document.write(unescape('%3c%6c%69%6e%6b%20%72%65%6c%20%3d%20%22%69%63%6f%6e%22%20%68%72%65%66%20%3d%22%69%6d%67%2f%6c%6f%67%6f%2e%70%6e%67%22%20%74%79%70%65%20%3d%20%22%69%6d%61%67%65%2f%70%6e%67%22%3e'));
+        document.write(unescape('%3c%6c%69%6e%6b%20%72%65%6c%20%3d%20%22%69%63%6f%6e%22%20%68%72%65%66%20%3d%22%69%6d%67%2f%6c%6f%67%6f%2e%70%6e%67%22%20%74%79%70%65%20%3d%20%22%69%6d%61%67%65%2f%70%6e%67%22%3e'));
     </script>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -32,21 +32,26 @@
 
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                    <a class="nav-link font-weight-bolder" href="{{url('transcation')}}">KASIR                          
-                        </a>
+                        <a class="nav-link font-weight-bolder" href="{{url('transcation')}}">KASIR </a>
                     </li>
+                    @role('superadmin')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('products')}}">Produk                          
-                            </a>
-                        </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('customer')}}">Customer                          
-                            </a>
-                        </li>
-
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{url('/transcation/history')}}">Riwayat Transaksi</a>
+                        <a class="nav-link" href="{{url('products')}}">Produk </a>
                     </li>
+                    @endrole
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('customer')}}">Customer </a>
+                    </li>
+                    @role('superadmin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/transcation/history')}}">Riwayat Transaksi</a>
+                    </li>
+                    @endrole
+                    @role('superadmin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/operators')}}">Operator</a>
+                    </li>
+                    @endrole
                 </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -101,12 +106,12 @@
             @yield('content')
         </main>
 
-        
+
     </div>
 
-    
+
 </body>
-        
+
 <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->

@@ -7,12 +7,12 @@
                 <div class="card-header bg-white">
                     <form action="{{ route('products.destroy', $product->id ) }}" method="POST">
                         <label class="font-weight-bold">
-                            <h4 class="font-weight-bold">Products</h4>
+                            <h4 class="font-weight-bold">Produk</h4>
                         </label>
                         @method('delete')
                         @csrf
                         <button class="btn btn-danger btn-sm float-right"
-                            onclick="return confirm('Apakah anda yakin menghapus data ini ?');">Delete Product</button>
+                            onclick="return confirm('Apakah anda yakin menghapus data ini ?');">Hapus Produk</button>
                     </form>
                 </div>
                 <div class="card-body">
@@ -27,7 +27,7 @@
                         <input type="hidden" name="id" value="{{ $product->id }}">
                         <input type="hidden" name="qty" value="{{ $product->qty }}">
                         <div class="form-group">
-                            <label for="product">Product Name</label>
+                            <label for="product">Nama Produk</label>
                             <input type="text" class="form-control" name="name"
                                 value="{{ old('name', $product->name) }}">
                             @include('layouts.error', ['name' => 'name'])
@@ -35,12 +35,12 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="price">Price</label>
+                                    <label for="price">Harga</label>
                                     <input type="number" class="form-control" name="price"
                                         value="{{ old('price' , $product->price) }}">
                                     @include('layouts.error', ['name' => 'price'])
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label>Gambar</label>
                                     <div>
                                         <div class="custom-file">
@@ -56,7 +56,7 @@
                                     <img src="{{asset($product->image)}}" class="img-fluid" id="preview">
                                     @endif
                                     @include('layouts.error', ['name' => 'image'])
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col">
                                 <div class="form-group">
@@ -65,9 +65,9 @@
                                         disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="addQty">Add / Reduce Qty </label>
+                                    <label for="addQty">Tambah / Kurangi Qty </label>
                                     <input type="number" class="form-control" name="addQty" value="{{ old('addQty') }}"
-                                        placeholder="Use positive number to increase | negative number to decrease">
+                                        placeholder="gunakan positif utk tambah | negatif utk mengurangi">
                                     @if(Session::has('errorQty'))
                                     <small class="text-danger font-weight-bold">
                                         {{ Session('errorQty') }}
@@ -77,10 +77,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">Update Product</button>
+                            <button type="submit" class="btn btn-primary btn-block">Ubah Produk</button>
                         </div>
                     </form>
-                    <H4>Product History</H4>
+                    <H4>Riwayat Produk</H4>
                     <table class="table" id="dtMaterialDesignExample">
                         <thead>
                             <tr>

@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header bg-white"><h4 class="font-weight-bold">Products</h4>
+                <div class="card-header bg-white"><h4 class="font-weight-bold">Produk</h4>
 
                 </div>
                 <div class="card-body">
@@ -15,7 +15,7 @@
                         @csrf
                         <input type="hidden" name="id">
                         <div class="form-group">
-                            <label for="product">Product Name</label>
+                            <label for="product">Nama Produk</label>
                             <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                             @include('layouts.error', ['name' => 'name'])
                         </div>
@@ -23,11 +23,11 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="price">Price</label>
+                                    <label for="price">Harga</label>
                                     <input type="number" class="form-control" name="price" value="{{ old('price') }}">
                                     @include('layouts.error', ['name' => 'price'])
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label>Gambar</label>
                                     <div>
                                         <div class="custom-file">
@@ -40,12 +40,12 @@
                                     </div>
                                     <div class="col-sm-12"><img id="output" src="" class="img-fluid"></div>
                                     @include('layouts.error', ['name' => 'image'])
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="qty">Qty</label>
-                                    <input type="number" class="form-control" name="qty" value="{{ old('qty') }}">
+                                    <input type="number" class="form-control" name="qty" value="{{ old('qty', 99999) }}">
                                     @include('layouts.error', ['name' => 'qty'])
                                 </div>
                             </div>

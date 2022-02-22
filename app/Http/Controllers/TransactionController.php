@@ -28,7 +28,7 @@ class TransactionController extends Controller
             return $query->where('name', 'like', '%' . request('search') . '%');
         })
             ->orderBy('name', 'asc')
-            ->paginate(12);
+            ->paginate(30);
 
 
         //cart item

@@ -96,25 +96,25 @@ class ProductController extends Controller
                     'name' => 'required|min:2|max:200',
                     'price' => 'required',
                     'qty' => 'required',
-                    'image' => 'mimes:jpeg,jpg,png,gif|max:25000',
+                    // 'image' => 'mimes:jpeg,jpg,png,gif|max:25000',
                     // 'description' => 'required', 
                 ]);
 
-                $gambar = $request->image;
-                $new_gambar = time().$gambar->getClientOriginalName();
+                // $gambar = $request->image;
+                // $new_gambar = time().$gambar->getClientOriginalName();
 
                 $product = Product::create([
                         'name' => $request->name,
                         'price' => $request->price,     
                         'qty' => $request->qty,          
-                        'image' => 'uploads/images/'.$new_gambar,
-                        'description' => $request->description,
+                        // 'image' => 'uploads/images/'.$new_gambar,
+                        // 'description' => $request->description,
                         'user_id' => Auth::id()
                 ]);        
 
-                Image::make($gambar->getRealPath())->resize(null, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(public_path('uploads/images/' . $new_gambar));
+                // Image::make($gambar->getRealPath())->resize(null, 200, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // })->save(public_path('uploads/images/' . $new_gambar));
 
                 HistoryProduct::create([
                     'product_id' => $product->id,

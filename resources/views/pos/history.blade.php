@@ -36,7 +36,7 @@
                             <td>{{$item->created_at }}</td>
                             <td>{{$item->invoices_number}}</td>
                             <td>{{$item->customer?->nama}}</td>
-                            <td>{{$item->user->name}}</td>
+                            <td>{{$item->user?->name}}</td>
                             <td>{{$item->pay}}</td>
                             <td>{{$item->total}}</td>
                             <td>
