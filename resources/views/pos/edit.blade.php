@@ -24,7 +24,7 @@
                                 <tr>
                                     <td width="38%">Admin</td>
                                     <td width="2%">:</td>
-                                    <td width="60%">{{$transaksi->user->name}}</td>
+                                    <td width="60%">{{$transaksi->user?->name}}</td>
                                 </tr>
                                 <tr>
                                     <td width="38%">Tanggal Transaksi</td>

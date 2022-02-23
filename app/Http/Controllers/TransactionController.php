@@ -271,7 +271,7 @@ class TransactionController extends Controller
 
     public function edit($id)
     {
-        $transaksi = Transcation::find($id);
+        $transaksi = Transcation::findOrfail($id);
         return view('pos.edit', compact('transaksi'));
     }
 
