@@ -13,6 +13,12 @@
         <style>
             html, body {
                 background-color: #fff;
+                background-image: url('{{ asset('uploads/home.jpg') }}');
+                background-position: center;
+                background-repeat: no-repeat; 
+                /* background-height: 100%; */
+                background-size: auto;
+                background-size: auto 100%;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -61,6 +67,12 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .btn {
+                border: 1px solid black;        /* border: tebal[px] tipe[solid,dashed,dotted] warna[#hex, rgb()]; */
+                padding: 0.5em 1em 0.5em 1em;     /* padding: top right bottom left; */
+            }
+
         </style>
     </head>
     <body>
@@ -70,7 +82,7 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}" class="btn">Login</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
@@ -81,8 +93,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <h3>Sumenep Digital Print</h3>
-                    Point of Sales
+                    {{-- <h3>Sumenep Digital Print</h3> --}}
                 </div>
             </div>
         </div>
